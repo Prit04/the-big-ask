@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Just One Question 💕</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Hey 💕</h1>
+        <p>I really like you…</p>
+        <p class="question">Will you be my girlfriend?</p>
+
+        <div class="buttons">
+            <button class="yes" id="yesBtn">Yes 💖</button>
+            <button class="no" id="noBtn">No 🙈</button>
+        </div>
+    </div>
+
+    <div class="hearts" id="hearts"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
