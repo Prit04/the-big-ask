@@ -3,25 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Question</title>
+    <title>For Hema ❤️</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <audio id="bgMusic" loop>
+        <source src="your-song.mp3" type="audio/mpeg">
+    </audio>
 
     <div class="container">
-        <div id="question-section">
-            <h1 id="questionText">Will you be my girlfriend? ❤️</h1>
+        <section id="page1" class="page active">
+            <h1>Hey Hema, my beautiful girl...</h1>
+            <p>I made a little something for you.</p>
+            <button onclick="nextPage(2)">Press me to continue</button>
+        </section>
+
+        <section id="page2" class="page">
+            <h1>Our Story</h1>
+            <div class="gallery">
+                <img src="your-gif-link.gif" alt="Cute Gif">
+                <p>Every moment with you is special, even from a distance.</p>
+            </div>
+            <button onclick="nextPage(3)">Keep going...</button>
+        </section>
+
+        <section id="page3" class="page">
+            <h1 id="questionText">Will you be my girlfriend?</h1>
             <div class="buttons">
                 <button id="yesBtn">Yes!</button>
                 <button id="noBtn">No</button>
             </div>
-        </div>
+        </section>
 
-        <div id="success-section" class="hidden">
-            <h1 class="success-text">Yay! I'm the luckiest guy! 🥰</h1>
-            <p>I can't wait to see you soon.</p>
-            <div class="heart">❤️</div>
-        </div>
+        <section id="page4" class="page">
+            <h1>Yay! Best day ever! ❤️</h1>
+            <p>I love you, Hema.</p>
+            <div class="heart">🥰</div>
+        </section>
     </div>
 
     <script src="script.js"></script>
