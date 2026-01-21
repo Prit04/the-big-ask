@@ -9,34 +9,47 @@ let burstInterval;
 function nextPage(n) {
     const currentPage = document.querySelector('.page.active');
     const nextSection = document.getElementById(`page${n}`);
+    const wrapper = document.querySelector('.main-wrapper');
 
     if (n === 2) {
-        // 1. START THE OVERSIZED HEART BURST
-        // Fire a massive wave immediately
+        // 1. BLUR THE BACKGROUND
+        wrapper.classList.add('blurred');
+
+        // 2. START THE OVERSIZED HEART BURST
         for (let i = 0; i < 60; i++) {
             setTimeout(createBurstHeart, i * 15); 
         }
 
-        // 2. FADE OUT CURRENT PAGE
+        // 3. FADE OUT CURRENT PAGE
         if (currentPage) currentPage.classList.add('fade-out');
 
-        // 3. SWITCH PAGE AFTER BURST
+        // 4. SWITCH PAGE AFTER BURST
         setTimeout(() => {
             document.querySelectorAll('.page').forEach(p => {
-                p.classList.remove('active', 'fade-out');
+                p.classList.remove('active', 'fade-out', 'fade-in-up');
             });
 
             nextSection.classList.add('active', 'fade-in-up');
 
-            // Reset and start letter
-            if (music) music.play().catch(() => {});
+            // Reset letter content
             document.getElementById('love-letter').innerHTML = "";
             letterIndex = 0;
-            setTimeout(typeLetter, 500);
-        }, 1100); // Slightly longer to allow the hearts to fill the screen
+
+            // 5. REMOVE BLUR AS BOX SETTLES
+            setTimeout(() => {
+                wrapper.classList.remove('blurred');
+            }, 300); // Remove blur slightly before typing starts
+
+            // 6. START TYPING
+            setTimeout(() => {
+                if (music) music.play().catch(() => {});
+                typeLetter(); 
+            }, 1200); 
+
+        }, 1100); 
 
     } else {
-        // Standard transition for other pages
+        // Normal transition for other pages
         if (currentPage) currentPage.classList.add('fade-out');
         setTimeout(() => {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active', 'fade-out'));
