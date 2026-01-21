@@ -192,23 +192,26 @@ button {
     flex-direction: column;
 }
 
-/* Add this to your style.css */
-
-/* The Bursting Heart style */
+/* Updated Bursting Heart style */
 .floating-heart.burst {
-    width: 30px; /* Bigger hearts */
-    height: 30px;
+    width: 80px;  /* Increased significantly for iPad impact */
+    height: 80px;
     opacity: 1;
-    z-index: 1000; /* Over everything */
-    background-color: #ff4d6d; /* Slightly deeper pink for the transition */
+    z-index: 1000; 
+    background-color: #ff4d6d;
+    filter: drop-shadow(0 0 15px rgba(255, 77, 109, 0.6)); /* Adds a soft glow */
 }
 
 .floating-heart.burst::before, 
 .floating-heart.burst::after {
-    width: 30px;
-    height: 30px;
+    width: 80px;
+    height: 80px;
     background-color: #ff4d6d;
 }
+
+/* Adjusting the heart shape for the larger size */
+.floating-heart.burst::before { top: -40px; }
+.floating-heart.burst::after { left: 40px; }
 
 /* Transition Blur (Optional Flare) */
 .blur-bg {

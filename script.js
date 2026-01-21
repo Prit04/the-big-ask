@@ -11,37 +11,32 @@ function nextPage(n) {
     const nextSection = document.getElementById(`page${n}`);
 
     if (n === 2) {
-        // 1. START THE HEART BURST
-        // Create 50 hearts almost instantly
-        for (let i = 0; i < 50; i++) {
-            setTimeout(createBurstHeart, i * 20); 
+        // 1. START THE OVERSIZED HEART BURST
+        // Fire a massive wave immediately
+        for (let i = 0; i < 60; i++) {
+            setTimeout(createBurstHeart, i * 15); 
         }
-
-        // Increase the normal heart rate temporarily
-        burstInterval = setInterval(createBurstHeart, 50);
 
         // 2. FADE OUT CURRENT PAGE
         if (currentPage) currentPage.classList.add('fade-out');
 
         // 3. SWITCH PAGE AFTER BURST
         setTimeout(() => {
-            clearInterval(burstInterval); // Stop the madness
-            
             document.querySelectorAll('.page').forEach(p => {
                 p.classList.remove('active', 'fade-out');
             });
 
             nextSection.classList.add('active', 'fade-in-up');
 
-            // Reset letter and start typewriter
+            // Reset and start letter
             if (music) music.play().catch(() => {});
             document.getElementById('love-letter').innerHTML = "";
             letterIndex = 0;
             setTimeout(typeLetter, 500);
-        }, 1000); // 1 second of heart burst
+        }, 1100); // Slightly longer to allow the hearts to fill the screen
 
     } else {
-        // Normal transition for other pages
+        // Standard transition for other pages
         if (currentPage) currentPage.classList.add('fade-out');
         setTimeout(() => {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active', 'fade-out'));
@@ -50,14 +45,17 @@ function nextPage(n) {
     }
 }
 
-// Special function for the bigger, faster transition hearts
 function createBurstHeart() {
     const heart = document.createElement('div');
     heart.classList.add('floating-heart', 'burst');
     heart.style.left = Math.random() * 100 + "vw";
     
-    // Make them fly faster
-    const duration = Math.random() * 1 + 1; 
+    // Randomize the size slightly so some are HUGE and some are medium
+    const scale = Math.random() * 1.5 + 0.8;
+    heart.style.transform = `rotate(-45deg) scale(${scale})`;
+    
+    // Fast float speed
+    const duration = Math.random() * 1.2 + 0.8; 
     heart.style.animationDuration = duration + "s";
     
     document.body.appendChild(heart);
