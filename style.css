@@ -191,3 +191,27 @@ button {
     display: flex;
     flex-direction: column;
 }
+
+/* Add this to your style.css */
+
+/* The Bursting Heart style */
+.floating-heart.burst {
+    width: 30px; /* Bigger hearts */
+    height: 30px;
+    opacity: 1;
+    z-index: 1000; /* Over everything */
+    background-color: #ff4d6d; /* Slightly deeper pink for the transition */
+}
+
+.floating-heart.burst::before, 
+.floating-heart.burst::after {
+    width: 30px;
+    height: 30px;
+    background-color: #ff4d6d;
+}
+
+/* Transition Blur (Optional Flare) */
+.blur-bg {
+    filter: blur(8px);
+    transition: filter 0.5s ease;
+}

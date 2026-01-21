@@ -4,6 +4,65 @@ const letterText = `Hema,\n\nFrom the moment we started talking, I knew there wa
 
 let introIndex = 0;
 let letterIndex = 0;
+let burstInterval;
+
+function nextPage(n) {
+    const currentPage = document.querySelector('.page.active');
+    const nextSection = document.getElementById(`page${n}`);
+
+    if (n === 2) {
+        // 1. START THE HEART BURST
+        // Create 50 hearts almost instantly
+        for (let i = 0; i < 50; i++) {
+            setTimeout(createBurstHeart, i * 20); 
+        }
+
+        // Increase the normal heart rate temporarily
+        burstInterval = setInterval(createBurstHeart, 50);
+
+        // 2. FADE OUT CURRENT PAGE
+        if (currentPage) currentPage.classList.add('fade-out');
+
+        // 3. SWITCH PAGE AFTER BURST
+        setTimeout(() => {
+            clearInterval(burstInterval); // Stop the madness
+            
+            document.querySelectorAll('.page').forEach(p => {
+                p.classList.remove('active', 'fade-out');
+            });
+
+            nextSection.classList.add('active', 'fade-in-up');
+
+            // Reset letter and start typewriter
+            if (music) music.play().catch(() => {});
+            document.getElementById('love-letter').innerHTML = "";
+            letterIndex = 0;
+            setTimeout(typeLetter, 500);
+        }, 1000); // 1 second of heart burst
+
+    } else {
+        // Normal transition for other pages
+        if (currentPage) currentPage.classList.add('fade-out');
+        setTimeout(() => {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active', 'fade-out'));
+            nextSection.classList.add('active', 'fade-in-up');
+        }, 800);
+    }
+}
+
+// Special function for the bigger, faster transition hearts
+function createBurstHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('floating-heart', 'burst');
+    heart.style.left = Math.random() * 100 + "vw";
+    
+    // Make them fly faster
+    const duration = Math.random() * 1 + 1; 
+    heart.style.animationDuration = duration + "s";
+    
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 2000);
+}
 
 function typeIntro() {
     if (introIndex < introText.length) {
@@ -24,14 +83,6 @@ function typeLetter() {
     }
 }
 
-function nextPage(n) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(`page${n}`).classList.add('active');
-    if (n === 2) {
-        music.play().catch(() => {});
-        setTimeout(typeLetter, 500);
-    }
-}
 
 // Sparkles logic
 setInterval(() => {
