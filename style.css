@@ -1,95 +1,161 @@
+/* 1. GOOGLE FONTS IMPORT */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@500;700&display=swap');
+
+/* 2. CORE LAYOUT */
 body {
     margin: 0;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #ede0d4 0%, #ffafcc 100%); /* Brown-Pink Mix */
-    font-family: 'Georgia', serif;
-    
-    /* ... your existing code ... */
-    overflow: hidden; /* This stops the shaking by hiding scrollbars */
-    touch-action: none; /* Prevents accidental zooming/scrolling on mobile */
+    background: linear-gradient(135deg, #ede0d4 0%, #ffafcc 100%);
+    font-family: 'Quicksand', sans-serif;
+    overflow: hidden;
+    touch-action: none;
 }
 
+.main-wrapper { 
+    width: 100%; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+}
 
+/* 3. HEADER GROUP - Moved lower and text made bigger */
+.header-group {
+    position: absolute;
+    top: 22%; /* Moved down from 15% to 22% */
+    width: 100%;
+    text-align: center;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.header-group h1 {
+    font-family: 'Dancing Script', cursive;
+    color: #795548;
+    font-size: 3.5rem; /* Increased from 2.8rem */
+    font-weight: 700;
+    margin: 0;
+    padding: 0 15px; /* Prevents text from hitting screen edges */
+}
+
+.cursive-font {
+    font-family: 'Dancing Script', cursive;
+    color: #a38b7e;
+    font-size: 2rem; /* Increased from 1.6rem */
+    font-weight: 700;
+    margin-top: 15px;
+}
+
+/* 4. CONTAINER - Centering Fix */
 .container {
     background: white;
-    padding: 3rem;
+    padding: 2.5rem;
     border-radius: 30px;
-    box-shadow: 0 15px 35px rgba(121, 85, 72, 0.2); /* Brownish shadow */
+    box-shadow: 0 15px 35px rgba(121, 85, 72, 0.2);
+    
+    /* These three lines ensure the button stays centered */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
     text-align: center;
     width: 85%;
-    max-width: 400px;
+    max-width: 350px;
+    position: relative;
+    z-index: 50;
 }
 
-h1 { color: #795548; font-size: 1.8rem; } /* Soft Brown */
-p { color: #a38b7e; margin-bottom: 20px; }
+/* Adjusting the button position for the first page specifically */
+.no-box { 
+    background: transparent !important; 
+    box-shadow: none !important; 
+    margin-top: 320px; /* Pushed further down to make room for bigger text */
+    width: 100%;
+}
 
+/* 5. BUTTONS (With Pulse Fix) */
 button {
     background-color: #ff8fa3;
     color: white;
-    padding: 12px 25px;
+    padding: 15px 30px;
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    font-size: 1rem;
-    transition: 0.3s;
+    font-weight: bold;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 110;
 }
 
-button:hover { background-color: #ff758f; transform: scale(1.05); }
-
-.page { display: none; } /* Hide all pages by default */
-.page.active { display: block; animation: fadeIn 0.8s; } /* Show only active page */
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-#noBtn { background-color: #d7ccc8; color: #795548; }
-
-.gallery img { width: 100%; border-radius: 15px; margin-bottom: 15px; }
-
-/* Create the Heart Shape */
-.floating-heart {
-    position: absolute;
-    bottom: -10px;
-    background-color: #ff8fa3;
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    transform: rotate(-45deg);
-    opacity: 0.6;
-    pointer-events: none; /* So she can still click buttons through them */
-    animation: floatUp 4s linear infinite;
-}
-
-.floating-heart::before,
-.floating-heart::after {
-    content: "";
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: #ff8fa3;
-    border-radius: 50%;
-}
-
-.floating-heart::before { top: -5px; left: 0; }
-.floating-heart::after { left: 5px; top: 0; }
-
-@keyframes floatUp {
-    0% { transform: translateY(0) rotate(-45deg); opacity: 0; }
-    20% { opacity: 0.6; }
-    100% { transform: translateY(-100vh) rotate(-45deg); opacity: 0; }
+/* This is the throb animation for the Start Button */
+.pop-in { 
+    opacity: 0; 
+    animation: fadeIn 0.5s 2.5s forwards, pulse 2s infinite 3s; 
 }
 
 @keyframes pulse {
     0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+    50% { transform: scale(1.08); }
     100% { transform: scale(1); }
 }
 
-#page1 button {
-    animation: pulse 2s infinite ease-in-out;
+/* 6. PAGE VISIBILITY */
+.page { display: none; }
+.page.active { display: flex; flex-direction: column; align-items: center; }
+
+.bounce-in { animation: bounceDown 1.2s ease-out forwards; }
+@keyframes bounceDown {
+    0% { transform: translateY(-500px); opacity: 0; }
+    60% { transform: translateY(30px); }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn { to { opacity: 1; } }
+.hidden { display: none; }
+.show { display: block; animation: fadeIn 1s forwards; }
+
+/* 7. DECORATIONS (Heart Fix) */
+.sparkle {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px white;
+    pointer-events: none;
+    z-index: 10;
+    animation: twinkle 1.5s infinite;
+}
+
+@keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+
+.floating-heart {
+    position: absolute;
+    bottom: -50px;
+    background-color: #ff8fa3;
+    width: 15px;
+    height: 15px;
+    transform: rotate(-45deg);
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: 5; /* Behind everything but visible */
+    animation: floatUp 5s linear forwards;
+}
+
+.floating-heart::before, .floating-heart::after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: #ff8fa3;
+    border-radius: 50%;
+}
+.floating-heart::before { top: -8px; left: 0; }
+.floating-heart::after { left: 8px; top: 0; }
+
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(-45deg); opacity: 0; }
+    15% { opacity: 0.8; }
+    100% { transform: translateY(-120vh) rotate(-45deg); opacity: 0; }
 }
