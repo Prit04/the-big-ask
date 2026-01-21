@@ -12,6 +12,9 @@ body {
     font-family: 'Quicksand', sans-serif;
     overflow: hidden;
     touch-action: none;
+    button {
+    touch-action: manipulation; /* Removes the 300ms tap delay on mobile/iPad */
+}
 }
 
 .main-wrapper { 
@@ -67,27 +70,36 @@ body {
     z-index: 50;
 }
 
-/* Adjusting the button position for the first page specifically */
+/* Update this specific section */
 .no-box { 
     background: transparent !important; 
     box-shadow: none !important; 
-    margin-top: 320px; /* Pushed further down to make room for bigger text */
-    width: 100%;
+    
+    /* Perfect Centering Logic */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* This pulls it back to the exact center */
+    top: 55%; /* Adjust this percentage to move the button up or down */
+    
+    width: auto;
+    display: flex;
+    justify-content: center;
+    z-index: 110;
 }
 
-/* 5. BUTTONS (With Pulse Fix) */
+/* Ensure the button itself doesn't have odd margins */
 button {
     background-color: #ff8fa3;
     color: white;
-    padding: 15px 30px;
+    padding: 18px 40px; /* Made slightly bigger for iPad tapping */
     border: none;
     border-radius: 50px;
     cursor: pointer;
     font-weight: bold;
     font-family: 'Quicksand', sans-serif;
-    font-size: 1.1rem;
-    position: relative;
-    z-index: 110;
+    font-size: 1.2rem;
+    margin: 0; /* Clear any default margins */
+    white-space: nowrap; /* Keeps text on one line */
 }
 
 /* This is the throb animation for the Start Button */
