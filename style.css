@@ -171,3 +171,23 @@ button {
     15% { opacity: 0.8; }
     100% { transform: translateY(-120vh) rotate(-45deg); opacity: 0; }
 }
+
+/* Styling for the Letter Title */
+.letter-title {
+    font-family: 'Dancing Script', cursive;
+    color: #795548;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center; /* Centers the title even if the letter is left-aligned */
+    border-bottom: 2px solid #f9dcc4; /* Optional: adds a soft divider line */
+    padding-bottom: 10px;
+}
+
+/* Ensure the box adjusts for the title */
+.letter-box {
+    max-width: 600px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
