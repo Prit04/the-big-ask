@@ -243,3 +243,27 @@ button {
 .blurred {
     filter: blur(10px);
 }
+
+/* Update these in style.css */
+
+/* Create a dedicated background layer if you haven't, 
+   or apply this to the body background */
+.bg-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Stay behind everything */
+    transition: filter 0.8s ease;
+}
+
+/* Use this instead of blurring the whole wrapper */
+.blurred-bg {
+    filter: blur(15px) brightness(0.9); /* Adding slight darkness helps hearts pop */
+}
+
+/* Add this to hide the ghosting text immediately */
+.exit-instant {
+    display: none !important;
+}

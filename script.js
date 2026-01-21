@@ -9,36 +9,37 @@ let burstInterval;
 function nextPage(n) {
     const currentPage = document.querySelector('.page.active');
     const nextSection = document.getElementById(`page${n}`);
-    const wrapper = document.querySelector('.main-wrapper');
+    const bg = document.getElementById('bg-visuals'); // Targeted background
 
     if (n === 2) {
-        // 1. BLUR THE BACKGROUND
-        wrapper.classList.add('blurred');
+        // 1. BLUR ONLY THE BACKGROUND
+        bg.classList.add('blurred-bg');
 
-        // 2. START THE OVERSIZED HEART BURST
+        // 2. START THE HEART BURST
         for (let i = 0; i < 60; i++) {
             setTimeout(createBurstHeart, i * 15); 
         }
 
-        // 3. FADE OUT CURRENT PAGE
-        if (currentPage) currentPage.classList.add('fade-out');
+        // 3. HIDE PAGE 1 CONTENT IMMEDIATELY (Prevents centering ghost)
+        if (currentPage) {
+            currentPage.classList.add('exit-instant'); 
+        }
 
-        // 4. SWITCH PAGE AFTER BURST
+        // 4. SWITCH TO PAGE 2
         setTimeout(() => {
             document.querySelectorAll('.page').forEach(p => {
-                p.classList.remove('active', 'fade-out', 'fade-in-up');
+                p.classList.remove('active', 'exit-instant', 'fade-in-up');
             });
 
             nextSection.classList.add('active', 'fade-in-up');
 
-            // Reset letter content
             document.getElementById('love-letter').innerHTML = "";
             letterIndex = 0;
 
-            // 5. REMOVE BLUR AS BOX SETTLES
+            // 5. LIFT BLUR
             setTimeout(() => {
-                wrapper.classList.remove('blurred');
-            }, 300); // Remove blur slightly before typing starts
+                bg.classList.remove('blurred-bg');
+            }, 400);
 
             // 6. START TYPING
             setTimeout(() => {
@@ -49,7 +50,7 @@ function nextPage(n) {
         }, 1100); 
 
     } else {
-        // Normal transition for other pages
+        // Normal transition for other pages...
         if (currentPage) currentPage.classList.add('fade-out');
         setTimeout(() => {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active', 'fade-out'));
