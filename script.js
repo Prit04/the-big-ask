@@ -219,15 +219,24 @@ function renderWord() {
     const display = document.getElementById('hangman-display');
     display.innerHTML = '';
     
-    [...targetPhrase].forEach(char => {
-        const slot = document.createElement('div');
-        if (char === ' ') {
-            slot.className = 'space-slot';
-        } else {
+    // Split the phrase into individual words
+    const words = targetPhrase.split(' ');
+
+    words.forEach((word) => {
+        // Create a container for each word to keep letters together
+        const wordDiv = document.createElement('div');
+        wordDiv.style.display = 'flex';
+        wordDiv.style.whiteSpace = 'nowrap'; // Prevents letters within the word from wrapping
+        wordDiv.style.margin = '5px 10px';    // Adds space between the words
+
+        [...word].forEach(char => {
+            const slot = document.createElement('div');
             slot.className = 'letter-slot';
             slot.innerText = guessedLetters.includes(char) ? char : '';
-        }
-        display.appendChild(slot);
+            wordDiv.appendChild(slot);
+        });
+
+        display.appendChild(wordDiv);
     });
 }
 

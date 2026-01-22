@@ -385,21 +385,25 @@ button {
     animation: pulse 2s infinite ease-in-out 1.2s; 
 }
 
+/* Update these in style.css */
+
 .word-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap;       /* Allows whole words to move to the next line */
     justify-content: center;
-    gap: 10px;
+    gap: 0;                /* We handle the gap inside the JS wordDiv now */
     margin: 20px 0;
+    width: 100%;           /* Ensure it uses the full width of the white box */
 }
 
 .letter-slot {
     border-bottom: 3px solid #ff8fa3;
-    min-width: 25px;
+    min-width: 22px;       /* Slightly narrower to fit better on iPad */
     height: 35px;
     text-align: center;
-    font-size: 1.8rem;
+    font-size: 1.6rem;     /* Slightly smaller font for better fit */
     color: #795548;
+    margin: 0 2px;         /* Tighten space between letters */
 }
 
 .space-slot { width: 15px; border: none; }
