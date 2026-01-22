@@ -468,41 +468,39 @@ button {
     transform: translateY(0); /* Glide to natural position */
 }
 
-/* --- CLEANED UP PAGE 5 STYLES --- */
+/* Update these at the bottom of style.css */
+
+/* Final Page 5 Layout */
 #page5.active {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; 
+    justify-content: flex-end;
     align-items: center;
     height: 100vh;
-    padding-bottom: 15vh;
+    padding-bottom: 18vh;
+    overflow: visible !important;
 }
 
 #page5 .header-group {
     position: absolute;
     top: 10%;
-    left: 0;
-    width: 100%;
-    pointer-events: none;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
     z-index: 100;
 }
 
 #page5 .cursive-font {
-    font-size: 2.5rem !important;
+    font-size: 2.8rem !important; /* Large text for Hema */
     color: #795548;
-    margin-top: 10px;
+    text-align: center;
+    display: block;
+    margin-top: 15px;
 }
 
 #page5 .container {
     margin-top: 0 !important;
-    z-index: 10;
-}
-
-.final-buttons {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
+    overflow: visible !important;
 }
 
 #noBtn {
@@ -510,8 +508,8 @@ button {
     color: #795548;
     padding: 15px 30px;
     font-size: 1.1rem;
-    /* This makes the movement smooth instead of flickering */
-    transition: left 0.3s ease-out, top 0.3s ease-out; 
-    -webkit-transform: translateZ(0);
+    /* Faster transition for the "Snap" feel */
+    transition: left 0.2s ease-in-out, top 0.2s ease-in-out; 
+    -webkit-transform: translateZ(0); 
     backface-visibility: hidden;
 }

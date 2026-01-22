@@ -51,31 +51,46 @@ function nextPage(n) {
         }
 
         // PAGE 5: The "No" Button Logic (UPDATED MATH)
-        if (n === 5) {
-            const noBtn = document.getElementById('noBtn');
-            if (noBtn) {
-                // We reset the position first so it doesn't fly away immediately
-                noBtn.style.position = 'static'; 
-                
-                const moveButton = () => {
-                    // STRICT SAFE ZONE: Keeps button between 25% and 65% of screen
-                    // This prevents it from flying off an iPad screen
-                    const x = Math.random() * 40 + 25; 
-                    const y = Math.random() * 40 + 25;
-                    
-                    noBtn.style.position = 'fixed';
-                    noBtn.style.left = x + 'vw';
-                    noBtn.style.top = y + 'vh';
-                    noBtn.style.zIndex = '9999'; 
-                };
+// Locate this inside your nextPage(n) function in script.js
+// Locate this inside your nextPage(n) function in script.js
+// Locate this inside your nextPage(n) function in script.js
+if (n === 5) {
+    const noBtn = document.getElementById('noBtn');
+    if (noBtn) {
+        // Safe fixed coordinates (Percentage of Width / Height)
+        // These are all central to avoid iPad system bars
+        const positions = [
+            { x: 30, y: 30 },
+            { x: 70, y: 30 },
+            { x: 30, y: 70 },
+            { x: 70, y: 70 }
+        ];
+        let lastPos = -1;
 
-                noBtn.onmouseover = moveButton;
-                noBtn.ontouchstart = (e) => {
-                    e.preventDefault(); 
-                    moveButton();
-                };
-            }
-        }
+        const moveButton = () => {
+            let newPos;
+            // Ensure it doesn't "snap" to the same spot twice in a row
+            do {
+                newPos = Math.floor(Math.random() * positions.length);
+            } while (newPos === lastPos);
+            
+            const pos = positions[newPos];
+            lastPos = newPos;
+
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = pos.x + 'vw';
+            noBtn.style.top = pos.y + 'vh';
+            noBtn.style.zIndex = '10000';
+            noBtn.style.transform = 'translate(-50%, -50%)'; // Perfectly centers the button on the coordinate
+        };
+
+        noBtn.onmouseover = moveButton;
+        noBtn.ontouchstart = (e) => {
+            e.preventDefault();
+            moveButton();
+        };
+    }
+}
 
         // PAGE 6: Final Celebration Burst
         if (n === 6) {
