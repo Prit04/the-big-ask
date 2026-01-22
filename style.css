@@ -491,11 +491,12 @@ button {
 }
 
 #page5 .cursive-font {
-    font-size: 2.8rem !important; /* Large text for Hema */
+    font-size: 2.8rem !important; 
     color: #795548;
     text-align: center;
     display: block;
-    margin-top: 15px;
+    width: 90%;
+    margin: 0 auto;
 }
 
 #page5 .container {
@@ -508,8 +509,12 @@ button {
     color: #795548;
     padding: 15px 30px;
     font-size: 1.1rem;
-    /* Faster transition for the "Snap" feel */
-    transition: left 0.2s ease-in-out, top 0.2s ease-in-out; 
-    -webkit-transform: translateZ(0); 
+    border-radius: 50px;
+    border: none;
+    /* REMOVE transition to prevent the button from sliding off-screen */
+    transition: none !important; 
+    
+    /* Hardware acceleration for iPad rendering */
+    -webkit-transform: translateZ(0);
     backface-visibility: hidden;
 }

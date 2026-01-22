@@ -57,19 +57,17 @@ function nextPage(n) {
 if (n === 5) {
     const noBtn = document.getElementById('noBtn');
     if (noBtn) {
-        // Safe fixed coordinates (Percentage of Width / Height)
-        // These are all central to avoid iPad system bars
+        // Strict central coordinates to ensure it never hits the iPad bezel
         const positions = [
-            { x: 30, y: 30 },
-            { x: 70, y: 30 },
-            { x: 30, y: 70 },
-            { x: 70, y: 70 }
+            { x: 40, y: 40 },
+            { x: 60, y: 40 },
+            { x: 40, y: 60 },
+            { x: 60, y: 60 }
         ];
         let lastPos = -1;
 
         const moveButton = () => {
             let newPos;
-            // Ensure it doesn't "snap" to the same spot twice in a row
             do {
                 newPos = Math.floor(Math.random() * positions.length);
             } while (newPos === lastPos);
@@ -77,16 +75,17 @@ if (n === 5) {
             const pos = positions[newPos];
             lastPos = newPos;
 
+            // Apply styles directly to bypass any CSS conflicts
             noBtn.style.position = 'fixed';
             noBtn.style.left = pos.x + 'vw';
             noBtn.style.top = pos.y + 'vh';
             noBtn.style.zIndex = '10000';
-            noBtn.style.transform = 'translate(-50%, -50%)'; // Perfectly centers the button on the coordinate
+            noBtn.style.transform = 'translate(-50%, -50%)'; 
         };
 
         noBtn.onmouseover = moveButton;
         noBtn.ontouchstart = (e) => {
-            e.preventDefault();
+            e.preventDefault(); 
             moveButton();
         };
     }
