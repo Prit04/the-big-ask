@@ -467,3 +467,33 @@ button {
     opacity: 1;
     transform: translateY(0); /* Glide to natural position */
 }
+
+/* Add these to style.css */
+
+.final-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#yesBtn {
+    background-color: #ff4d6d; /* Deeper romantic red */
+    padding: 20px 50px;
+    font-size: 1.6rem;
+    transition: transform 0.3s;
+}
+
+#yesBtn:active {
+    transform: scale(0.9);
+}
+
+#noBtn {
+    background-color: #d7ccc8;
+    color: #795548;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    transition: 0.2s ease; /* Smooth movement when it escapes */
+}

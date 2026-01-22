@@ -34,7 +34,12 @@ function nextPage(n) {
         cancelAnimationFrame(heartAnimationId); // Stop the heart animation
         setTimeout(initHangman, 500); 
     }
-
+if (n === 6) {
+    // When she hits YES, let's do an EXTRA big heart burst
+    for (let i = 0; i < 100; i++) {
+        setTimeout(createBurstHeart, i * 10); 
+    }
+}
         if (n === 2) {
             document.getElementById('love-letter').innerHTML = "";
             letterIndex = 0;
@@ -116,15 +121,7 @@ function createHeart() {
 }
 setInterval(createHeart, 400);
 
-// No Button Logic
-const noBtn = document.getElementById('noBtn');
-if (noBtn) {
-    noBtn.addEventListener('mouseover', () => {
-        noBtn.style.position = 'fixed';
-        noBtn.style.left = Math.random() * 80 + 'vw';
-        noBtn.style.top = Math.random() * 80 + 'vh';
-    });
-}
+
 
 let heartAnimationId;
 let heartPhase = 0;
@@ -296,3 +293,31 @@ function checkWin() {
 }
 // Add to your nextPage logic:
 // if (n === 4) { setTimeout(initHangman, 500); }
+
+
+// Add this to the bottom of your script.js
+
+/* Update the No Button logic in script.js */
+const noBtn = document.getElementById('noBtn');
+
+if (noBtn) {
+    const moveButton = () => {
+        // Stay within 70% of the screen so it doesn't vanish entirely
+        const x = Math.random() * 70;
+        const y = Math.random() * 70;
+        
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = x + 'vw';
+        noBtn.style.top = y + 'vh';
+        noBtn.style.zIndex = '1000';
+    };
+
+    // Desktop support
+    noBtn.addEventListener('mouseover', moveButton);
+    
+    // iPad/Touch support: moves before the click registers
+    noBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Prevents the iPad from clicking the button
+        moveButton();
+    });
+}
