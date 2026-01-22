@@ -14,14 +14,20 @@ function nextPage(n) {
     const nextSection = document.getElementById(`page${n}`);
     const bg = document.getElementById('bg-visuals'); 
 
+    // 1. Trigger the "Magic" (Blur + Hearts)
     if (bg) bg.classList.add('blurred-bg');
 
+    // Create the Heart Burst
     for (let i = 0; i < 60; i++) {
         setTimeout(createBurstHeart, i * 15); 
     }
 
-    if (currentPage) currentPage.classList.add('exit-instant'); 
+    // 2. Hide current page immediately to prevent ghosting
+    if (currentPage) {
+        currentPage.classList.add('exit-instant'); 
+    }
 
+    // 3. Switch to the next page
     setTimeout(() => {
         document.querySelectorAll('.page').forEach(p => {
             p.classList.remove('active', 'exit-instant', 'fade-in-up', 'fade-out');
@@ -29,17 +35,9 @@ function nextPage(n) {
 
         nextSection.classList.add('active', 'fade-in-up');
 
-        // --- ADD THIS PART FOR PAGE 4 ---
-        if (n === 4) {
-        cancelAnimationFrame(heartAnimationId); // Stop the heart animation
-        setTimeout(initHangman, 500); 
-    }
-if (n === 6) {
-    // When she hits YES, let's do an EXTRA big heart burst
-    for (let i = 0; i < 100; i++) {
-        setTimeout(createBurstHeart, i * 10); 
-    }
-}
+        // --- PAGE-SPECIFIC LOGIC ---
+
+        // PAGE 2: The Letter
         if (n === 2) {
             document.getElementById('love-letter').innerHTML = "";
             letterIndex = 0;
@@ -49,16 +47,52 @@ if (n === 6) {
             }, 1200);
         }
 
+        // PAGE 3: The Rotating Heart
         if (n === 3) {
             setTimeout(createTextHeart, 500);
         }
 
+        // PAGE 4: The Hangman Game
+        if (n === 4) {
+            if (typeof heartAnimationId !== 'undefined') cancelAnimationFrame(heartAnimationId);
+            setTimeout(initHangman, 500); 
+        }
+
+        // PAGE 5: The "No" Button Logic
+        if (n === 5) {
+            const noBtn = document.getElementById('noBtn');
+            if (noBtn) {
+                const moveButton = () => {
+                    const x = Math.random() * 70;
+                    const y = Math.random() * 70;
+                    noBtn.style.position = 'fixed';
+                    noBtn.style.left = x + 'vw';
+                    noBtn.style.top = y + 'vh';
+                    noBtn.style.zIndex = '1000';
+                };
+                noBtn.onmouseover = moveButton;
+                noBtn.ontouchstart = (e) => {
+                    e.preventDefault(); 
+                    moveButton();
+                };
+            }
+        }
+
+        // PAGE 6: Final Celebration Burst
+        if (n === 6) {
+            for (let i = 0; i < 100; i++) {
+                setTimeout(createBurstHeart, i * 10); 
+            }
+        }
+
+        // 4. Lift the blur as the new page settles
         setTimeout(() => {
             if (bg) bg.classList.remove('blurred-bg');
         }, 400);
 
     }, 1100); 
 }
+
 function createBurstHeart() {
     const heart = document.createElement('div');
     heart.classList.add('floating-heart', 'burst');
@@ -296,28 +330,3 @@ function checkWin() {
 
 
 // Add this to the bottom of your script.js
-
-/* Update the No Button logic in script.js */
-const noBtn = document.getElementById('noBtn');
-
-if (noBtn) {
-    const moveButton = () => {
-        // Stay within 70% of the screen so it doesn't vanish entirely
-        const x = Math.random() * 70;
-        const y = Math.random() * 70;
-        
-        noBtn.style.position = 'fixed';
-        noBtn.style.left = x + 'vw';
-        noBtn.style.top = y + 'vh';
-        noBtn.style.zIndex = '1000';
-    };
-
-    // Desktop support
-    noBtn.addEventListener('mouseover', moveButton);
-    
-    // iPad/Touch support: moves before the click registers
-    noBtn.addEventListener('touchstart', (e) => {
-        e.preventDefault(); // Prevents the iPad from clicking the button
-        moveButton();
-    });
-}

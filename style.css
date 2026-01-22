@@ -469,6 +469,17 @@ button {
 }
 
 /* Add these to style.css */
+/* Update these in style.css */
+#page5.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers the whole group vertically */
+    align-items: center;
+}
+
+#page5 .container {
+    margin-top: 150px; /* Pushes the white box down to make room for the header */
+}
 
 .final-buttons {
     display: flex;
@@ -476,7 +487,6 @@ button {
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-top: 20px;
 }
 
 #yesBtn {
@@ -496,4 +506,28 @@ button {
     padding: 15px 30px;
     font-size: 1.1rem;
     transition: 0.2s ease; /* Smooth movement when it escapes */
+}
+
+/* Add this to the bottom of style.css */
+
+#page5.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* This pushes the white container down so the header text has room */
+#page5 .container {
+    margin-top: 150px; 
+}
+
+/* This ensures the Yes and No buttons stay side-by-side */
+.final-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
