@@ -180,10 +180,11 @@ function createTextHeart() {
     const sentences = [
         "I love you", "Kanmani", "My Everything", "En Anbe", 
         "Princess", "My World", "Baby girl", "En Uyire",
-        "Forever yours", "Always you", "Mine", "Deeply in love"
+        "Forever yours", "Always you", "Mine", "Chella kutti", "Beautiful", "My Joy", "Sweetheart", "My Love", 
+        "Adored", "Beloved", "My Heart", "Soulmate", "Treasure", "One and Only"
     ];
     
-    const totalSentences = 22; // Increased from 12 to 22 for a fuller look
+    const totalSentences = 35; // Increased from 12 to 22 for a fuller look
     const colors = ["#ff4d6d", "#ff758f", "#c9184a", "#ff8fa3"]; // Shades of pink/red
     
     container.innerHTML = '';
