@@ -14,28 +14,20 @@ function nextPage(n) {
     const nextSection = document.getElementById(`page${n}`);
     const bg = document.getElementById('bg-visuals'); 
 
-    // 1. Trigger the "Magic" (Blur + Hearts)
     if (bg) bg.classList.add('blurred-bg');
 
-    // Create the Heart Burst
     for (let i = 0; i < 60; i++) {
         setTimeout(createBurstHeart, i * 15); 
     }
 
-    // 2. Hide current page immediately to prevent ghosting
-    if (currentPage) {
-        currentPage.classList.add('exit-instant'); 
-    }
+    if (currentPage) currentPage.classList.add('exit-instant'); 
 
-    // 3. Switch to the next page
     setTimeout(() => {
         document.querySelectorAll('.page').forEach(p => {
             p.classList.remove('active', 'exit-instant', 'fade-in-up', 'fade-out');
         });
 
         nextSection.classList.add('active', 'fade-in-up');
-
-        // --- PAGE-SPECIFIC LOGIC ---
 
         // PAGE 2: The Letter
         if (n === 2) {
@@ -58,34 +50,32 @@ function nextPage(n) {
             setTimeout(initHangman, 500); 
         }
 
-        // PAGE 5: The "No" Button Logic
-// PAGE 5: The "No" Button Logic
-// Replace the Page 5 logic inside your nextPage(n) function in script.js
+        // PAGE 5: The "No" Button Logic (UPDATED MATH)
+        if (n === 5) {
+            const noBtn = document.getElementById('noBtn');
+            if (noBtn) {
+                // We reset the position first so it doesn't fly away immediately
+                noBtn.style.position = 'static'; 
+                
+                const moveButton = () => {
+                    // STRICT SAFE ZONE: Keeps button between 25% and 65% of screen
+                    // This prevents it from flying off an iPad screen
+                    const x = Math.random() * 40 + 25; 
+                    const y = Math.random() * 40 + 25;
+                    
+                    noBtn.style.position = 'fixed';
+                    noBtn.style.left = x + 'vw';
+                    noBtn.style.top = y + 'vh';
+                    noBtn.style.zIndex = '9999'; 
+                };
 
-if (n === 5) {
-    const noBtn = document.getElementById('noBtn');
-    if (noBtn) {
-        const moveButton = () => {
-            // STRICT SAFE ZONE: Keeps button within 25% to 70% of the screen
-            // This ensures it never hits the iPad notch, dock, or edges
-            const x = Math.random() * 45 + 25; 
-            const y = Math.random() * 45 + 25;
-            
-            noBtn.style.position = 'fixed';
-            noBtn.style.left = x + 'vw';
-            noBtn.style.top = y + 'vh';
-            noBtn.style.zIndex = '9999'; 
-        };
-
-        noBtn.onmouseover = moveButton;
-        
-        // Essential for iPad touch interaction
-        noBtn.ontouchstart = (e) => {
-            e.preventDefault(); 
-            moveButton();
-        };
-    }
-}
+                noBtn.onmouseover = moveButton;
+                noBtn.ontouchstart = (e) => {
+                    e.preventDefault(); 
+                    moveButton();
+                };
+            }
+        }
 
         // PAGE 6: Final Celebration Burst
         if (n === 6) {
@@ -94,7 +84,6 @@ if (n === 5) {
             }
         }
 
-        // 4. Lift the blur as the new page settles
         setTimeout(() => {
             if (bg) bg.classList.remove('blurred-bg');
         }, 400);

@@ -468,35 +468,29 @@ button {
     transform: translateY(0); /* Glide to natural position */
 }
 
-/* Add these to style.css */
-/* Update these in style.css */
-/* 1. LOCK THE LAYOUT - Pushes the white box to the bottom */
-/* Update these at the bottom of style.css */
-
+/* --- CLEANED UP PAGE 5 STYLES --- */
 #page5.active {
     display: flex;
     flex-direction: column;
     justify-content: flex-end; 
     align-items: center;
     height: 100vh;
-    padding-bottom: 15vh; /* Gives the white box a solid home */
+    padding-bottom: 15vh;
 }
 
 #page5 .header-group {
     position: absolute;
-    top: 12%; /* Moves it slightly higher to make room for larger text */
+    top: 10%;
     left: 0;
     width: 100%;
     pointer-events: none;
     z-index: 100;
 }
 
-/* This makes the "Can I be your boyfriend?" text much bigger */
 #page5 .cursive-font {
-    font-size: 2.8rem !important; /* Increased from 1.5rem */
+    font-size: 2.5rem !important;
     color: #795548;
     margin-top: 10px;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 #page5 .container {
@@ -504,13 +498,20 @@ button {
     z-index: 10;
 }
 
+.final-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
 #noBtn {
     background-color: #d7ccc8;
     color: #795548;
     padding: 15px 30px;
     font-size: 1.1rem;
-    transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                top 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    /* This makes the movement smooth instead of flickering */
+    transition: left 0.3s ease-out, top 0.3s ease-out; 
     -webkit-transform: translateZ(0);
     backface-visibility: hidden;
 }
