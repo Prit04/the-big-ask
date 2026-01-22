@@ -5,6 +5,9 @@ const letterText = `Hema,\n\n From the day I requested you and built the courage
 let introIndex = 0;
 let letterIndex = 0;
 let burstInterval;
+const targetPhrase = "CAN I BE YOUR BOYFRIEND";
+let guessedLetters = [];
+let lives = 6;
 
 function nextPage(n) {
     const currentPage = document.querySelector('.page.active');
@@ -28,11 +31,9 @@ function nextPage(n) {
 
         // --- ADD THIS PART FOR PAGE 4 ---
         if (n === 4) {
-            // We wait a split second for the page to finish sliding in
-            setTimeout(() => {
-                initHangman(); 
-            }, 500);
-        }
+        cancelAnimationFrame(heartAnimationId); // Stop the heart animation
+        setTimeout(initHangman, 500); 
+    }
 
         if (n === 2) {
             document.getElementById('love-letter').innerHTML = "";
@@ -198,27 +199,17 @@ if (n === 3) {
 }
 
 
-const targetPhrase = "CAN I BE YOUR BOYFRIEND";
-let guessedLetters = [];
-let lives = 6;
-
 function initHangman() {
     const display = document.getElementById('hangman-display');
     const kb = document.getElementById('keyboard');
-
-    // If these don't exist, the game can't start!
-    if (!display || !kb) {
-        console.error("Game elements not found!");
-        return;
-    }
+    if (!display || !kb) return;
 
     lives = 6;
     guessedLetters = [];
     document.getElementById('lives-count').innerText = lives;
-    
-    // Ensure success message is hidden and keyboard is visible
     document.getElementById('game-success').classList.add('hidden');
-    kb.style.display = 'flex'; 
+    kb.classList.remove('hidden');
+    kb.style.display = 'flex';
     
     renderWord();
     renderKeyboard();
@@ -279,6 +270,5 @@ function checkWin() {
         document.getElementById('game-success').classList.remove('hidden');
     }
 }
-
 // Add to your nextPage logic:
 // if (n === 4) { setTimeout(initHangman, 500); }
