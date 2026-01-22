@@ -91,10 +91,11 @@ function typeLetter() {
         letterIndex++;
         setTimeout(typeLetter, 50);
     } else {
-        // This reveals the GIF and the Button
+        // Typing is finished! Reveal the cat and the pulsing button
         const catSection = document.getElementById("cat-gif");
-        catSection.classList.remove("hidden");
         catSection.classList.add("show");
+        // Scroll to the bottom of the letter so she sees the cat appear
+        catSection.scrollIntoView({ behavior: 'smooth' });
     }
 }
 // Sparkles logic

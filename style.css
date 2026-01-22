@@ -184,14 +184,14 @@ button {
     padding-bottom: 10px;
 }
 
-/* Ensure the box adjusts for the title */
 .letter-box {
     max-width: 600px;
+    min-height: 400px; /* Gives a nice minimum height */
     text-align: left;
     display: flex;
     flex-direction: column;
+    padding: 3rem; /* More breathing room */
 }
-
 /* Updated Bursting Heart style */
 .floating-heart.burst {
     width: 80px;  /* Increased significantly for iPad impact */
@@ -268,7 +268,7 @@ button {
     display: none !important;
 }
 
-/* Centers the GIF and Button inside the letter box */
+/* Centers the container but keeps it invisible initially */
 #cat-gif {
     text-align: center;
     display: flex;
@@ -277,6 +277,17 @@ button {
     justify-content: center;
     width: 100%;
     margin-top: 30px;
+    
+    /* THE FIX: Start invisible and non-interactive */
+    opacity: 0;
+    pointer-events: none; 
+    transition: opacity 1s ease-in;
+}
+
+/* When typing ends, this class makes them appear */
+#cat-gif.show {
+    opacity: 1;
+    pointer-events: auto; 
 }
 
 .cat-container img {
@@ -285,12 +296,12 @@ button {
     margin-bottom: 20px;
 }
 
-/* The Button Fade-in + Pulse */
+/* The Button Pulse */
 .pulse-button {
-    opacity: 0; /* Starts hidden */
-    animation: fadeIn 1s forwards, pulse 2s infinite 1s; /* Fades in then pulses */
+    /* We don't need fadeIn here because the parent #cat-gif handles the fade */
+    animation: pulse 2s infinite ease-in-out;
+    opacity: 1 !important; /* Ensure it's visible once the container shows */
 }
-
 /* Reusing your pulse animation if you have it, or adding it here */
 @keyframes pulse {
     0% { transform: scale(1); }
