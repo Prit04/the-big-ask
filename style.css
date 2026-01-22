@@ -505,9 +505,12 @@ button {
     color: #795548;
     padding: 15px 30px;
     font-size: 1.1rem;
-    transition: 0.2s ease; /* Smooth movement when it escapes */
+    transition: 0.2s ease;
+    
+    /* ADD THESE TWO LINES */
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
 }
-
 /* Add this to the bottom of style.css */
 
 #page5.active {

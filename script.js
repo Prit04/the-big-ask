@@ -59,24 +59,30 @@ function nextPage(n) {
         }
 
         // PAGE 5: The "No" Button Logic
-        if (n === 5) {
-            const noBtn = document.getElementById('noBtn');
-            if (noBtn) {
-                const moveButton = () => {
-                    const x = Math.random() * 70;
-                    const y = Math.random() * 70;
-                    noBtn.style.position = 'fixed';
-                    noBtn.style.left = x + 'vw';
-                    noBtn.style.top = y + 'vh';
-                    noBtn.style.zIndex = '1000';
-                };
-                noBtn.onmouseover = moveButton;
-                noBtn.ontouchstart = (e) => {
-                    e.preventDefault(); 
-                    moveButton();
-                };
-            }
-        }
+if (n === 5) {
+    const noBtn = document.getElementById('noBtn');
+    if (noBtn) {
+        const moveButton = () => {
+            // Safe zone: stay between 15% and 75% so it doesn't hit the screen edges
+            const x = Math.random() * 60 + 15;
+            const y = Math.random() * 60 + 15;
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'vw';
+            noBtn.style.top = y + 'vh';
+            noBtn.style.zIndex = '9999'; // Keep it on top of everything
+        };
+
+        // Desktop support
+        noBtn.onmouseover = moveButton;
+        
+        // iPad/Touch support: prevents the tap and moves it instead
+        noBtn.ontouchstart = (e) => {
+            e.preventDefault(); 
+            moveButton();
+        };
+    }
+}
 
         // PAGE 6: Final Celebration Burst
         if (n === 6) {
