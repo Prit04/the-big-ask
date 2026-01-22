@@ -274,9 +274,20 @@ function handleGuess(letter, btn) {
 
 function checkWin() {
     const isWin = [...targetPhrase.replace(/\s/g, '')].every(l => guessedLetters.includes(l));
+    
     if (isWin) {
-        document.getElementById('keyboard').classList.add('hidden');
-        document.getElementById('game-success').classList.remove('hidden');
+        const kb = document.getElementById('keyboard');
+        const successSection = document.getElementById('game-success');
+        
+        // 1. Hide the keyboard
+        kb.classList.add('hidden');
+        
+        // 2. Prepare the success section and then trigger the fade-in
+        successSection.classList.remove('hidden');
+        
+        setTimeout(() => {
+            successSection.classList.add('reveal');
+        }, 50); // Minimal delay to trigger the CSS transition
     }
 }
 // Add to your nextPage logic:
