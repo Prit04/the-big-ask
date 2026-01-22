@@ -345,7 +345,6 @@ function checkWin() {
 
 // Add this to the bottom of your script.js
 
-// New Confetti Function
 function createConfetti() {
     const colors = ['#ff4d6d', '#ff8fa3', '#ffafcc', '#ffffff', '#ffb3c1'];
     for (let i = 0; i < 100; i++) {
@@ -355,22 +354,27 @@ function createConfetti() {
             width: 10px;
             height: 10px;
             background-color: ${colors[Math.floor(Math.random() * colors.length)]};
-            top: -10px;
+            top: -20px;
             left: ${Math.random() * 100}vw;
-            opacity: ${Math.random()};
+            opacity: ${Math.random() * 0.7 + 0.3};
             transform: rotate(${Math.random() * 360}deg);
             z-index: 2000;
             pointer-events: none;
         `;
         document.body.appendChild(confetti);
 
-        const duration = Math.random() * 3 + 2;
+        // SLOW FALL: Increased duration to 5-8 seconds for a slow drift
+        const duration = Math.random() * 3 + 5; 
+        
+        // Added a "Sway" to the X-axis so they drift side-to-side while falling
+        const drift = Math.random() * 200 - 100;
+
         confetti.animate([
-            { transform: `translate3d(0, 0, 0) rotate(0deg)`, top: '-10px' },
-            { transform: `translate3d(${Math.random() * 200 - 100}px, 105vh, 0) rotate(${Math.random() * 1000}deg)`, top: '105vh' }
+            { transform: `translate3d(0, 0, 0) rotate(0deg)`, top: '-20px' },
+            { transform: `translate3d(${drift}px, 105vh, 0) rotate(${Math.random() * 1000}deg)`, top: '105vh' }
         ], {
             duration: duration * 1000,
-            easing: 'cubic-bezier(0, .9, .57, 1)'
+            easing: 'linear' // Linear makes the speed constant and slow
         }).onfinish = () => confetti.remove();
     }
 }

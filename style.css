@@ -533,56 +533,55 @@ button {
     font-size: 1rem;
 }
 
-/* --- FINAL PAGE RESTRUCTURE --- */
+/* --- FINAL PAGE STACKING FIX --- */
 #page6.active {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center; /* Centers the whole stack vertically */
     align-items: center;
     height: 100vh;
+    padding: 20px;
 }
 
-/* Add these to the bottom of style.css */
-
-#page6.active {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Align from the top down */
-    align-items: center;
-    padding-top: 5vh;
+.final-header-block {
+    text-align: center;
+    margin-bottom: 30px; /* Forces space between text and box */
+    z-index: 100;
 }
 
-/* Ensure the title sits high and centered */
-.final-header {
-    position: relative !important; /* Changes from absolute to stack naturally */
-    top: 0 !important;
-    margin-bottom: 20px;
+.final-header-block h1 {
+    font-family: 'Dancing Script', cursive;
+    color: #795548;
+    font-size: 2.8rem;
+    margin: 0;
 }
 
 .celebration-box {
-    margin-top: 20px !important;
+    margin-top: 0 !important; /* Managed by the header's margin-bottom now */
     padding: 2.5rem !important;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
+    width: 90%;
+    max-width: 450px;
 }
 
 .main-love {
-    font-size: 2.2rem !important;
+    font-size: 2.4rem !important;
     color: #ff4d6d !important;
+    line-height: 1.2;
     margin: 0;
 }
 
 .princess-text {
-    font-size: 1.6rem !important;
+    font-size: 1.8rem !important;
     color: #ff8fa3 !important;
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 
 .cat-container img {
-    width: 180px; /* Sized for iPad */
+    width: 180px;
     height: auto;
     border-radius: 15px;
-    display: block; /* Ensures visibility */
 }
