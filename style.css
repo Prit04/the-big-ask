@@ -337,19 +337,21 @@ button {
     width: 300px;
     height: 300px;
     margin: 0 auto;
-    /* Rotation animation */
-    animation: rotateHeart 15s linear infinite;
+    /* Removed the rotateHeart animation from here */
     transform-style: preserve-3d;
 }
 
 .heart-sentence {
     position: absolute;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 1rem;
+    font-family: 'Dancing Script', cursive; /* Cursive looks better for this */
+    font-size: 1.1rem;
     font-weight: 700;
     color: #ff4d6d;
     white-space: nowrap;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8); /* Makes it readable against hearts */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    transform-origin: center;
+    /* This ensures they don't jitter while moving */
+    will-change: left, top, transform; 
 }
 
 @keyframes rotateHeart {
@@ -361,4 +363,24 @@ button {
 .game-intro {
     height: 60px; /* Reserve space so it doesn't jump */
     margin-top: 40px;
+}
+
+/* Update these in style.css */
+
+#gameStartBtn {
+    opacity: 0;
+    transform: translateY(20px); /* Starts slightly lower */
+    pointer-events: none;
+    transition: opacity 1.2s ease-out, transform 1.2s ease-out; /* Smooth fade and slide */
+}
+
+#gameStartBtn.show {
+    opacity: 1;
+    transform: translateY(0); /* Moves to its natural spot */
+    pointer-events: auto;
+}
+
+/* Ensure the throb/pulse happens AFTER it fades in */
+.pulse-button.show {
+    animation: pulse 2s infinite ease-in-out 1.2s; 
 }

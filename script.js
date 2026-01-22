@@ -131,47 +131,70 @@ if (noBtn) {
     });
 }
 
+let heartAnimationId;
+let heartPhase = 0;
+
 function createTextHeart() {
     const container = document.getElementById('text-heart-container');
+    // Added more variety to the phrases
     const sentences = [
-        "I love you", "En anbe", "My everything", "I love you", 
-        "Kanmani", "My princess", "I love you", "Baby girl", 
-        "I love you", "My world", "En uyire", "I love you"
+        "I love you", "Kanmani", "My Everything", "En Anbe", 
+        "Princess", "My World", "Baby girl", "En Uyire",
+        "Forever yours", "Always you", "Mine", "Deeply in love"
     ];
     
-    const totalSentences = 15; // Number of items to form the shape
-    container.innerHTML = ''; // Clear previous
-
+    const totalSentences = 22; // Increased from 12 to 22 for a fuller look
+    const colors = ["#ff4d6d", "#ff758f", "#c9184a", "#ff8fa3"]; // Shades of pink/red
+    
+    container.innerHTML = '';
+    const spans = [];
+    
     for (let i = 0; i < totalSentences; i++) {
-        const t = (i / totalSentences) * 2 * Math.PI;
-        
-        // Heart Math (Parametric equations)
-        const x = 16 * Math.pow(Math.sin(t), 3);
-        const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
-        
         const span = document.createElement('span');
         span.className = 'heart-sentence';
         span.innerText = sentences[i % sentences.length];
         
-        // Scale the coordinates to fit the container (x10)
-        const posX = x * 10 + 150; 
-        const posY = y * 10 + 150;
-        
-        span.style.left = `${posX}px`;
-        span.style.top = `${posY}px`;
-        
-        // Slightly rotate each sentence to follow the curve
-        span.style.transform = `rotate(${t}rad)`;
+        // Randomize color for depth
+        span.style.color = colors[i % colors.length];
         
         container.appendChild(span);
+        spans.push(span);
     }
 
-    // Show the button after 3 seconds of the heart rotating
-    setTimeout(() => {
-        const btn = document.getElementById('gameStartBtn');
-        btn.classList.remove('hidden');
+    function animate() {
+        heartPhase -= 0.007; // Negative makes it move clockwise
+        
+        spans.forEach((span, i) => {
+            const t = ((i / totalSentences) * 2 * Math.PI) + heartPhase;
+            
+            // Heart Math
+            const x = 16 * Math.pow(Math.sin(t), 3);
+            const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+            
+            // Scale slightly larger (x9 instead of x8) to fill the screen better
+            const posX = x * 9 + 150; 
+            const posY = y * 9 + 150;
+            
+            span.style.left = `${posX}px`;
+            span.style.top = `${posY}px`;
+            
+            // We adjust the rotation so the text "leans" into the curve
+            span.style.transform = `translate(-50%, -50%) rotate(${t + Math.PI/2}rad)`;
+        });
+
+        heartAnimationId = requestAnimationFrame(animate);
+    }
+
+    animate();
+
+// Inside your createTextHeart() function at the very bottom:
+
+setTimeout(() => {
+    const btn = document.getElementById('gameStartBtn');
+    if (btn) {
         btn.classList.add('show');
-    }, 3000);
+    }
+}, 4000); // Wait 4 seconds for her to admire the heart first
 }
 
 // Update your nextPage function to trigger the heart creation
