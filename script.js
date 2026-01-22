@@ -55,6 +55,7 @@ function nextPage(n) {
 // Locate this inside your nextPage(n) function in script.js
 // Locate this inside your nextPage(n) function in script.js
 // Locate this inside your nextPage(n) function in script.js
+// Locate this inside your nextPage(n) function in script.js
 if (n === 5) {
     const noBtn = document.getElementById('noBtn');
     const yesBtn = document.getElementById('yesBtn');
@@ -62,34 +63,43 @@ if (n === 5) {
     let yesScale = 1;
 
     if (noBtn && yesBtn) {
-        const handleNoInteraction = (e) => {
-            if (e) e.preventDefault(); // Essential for iPad touch
+        const handleNo = (e) => {
+            if (e) e.preventDefault();
             
-            // Shrink the No button and grow the Yes button
+            // Shrink the No, Grow the Yes
             noScale -= 0.15;
-            yesScale += 0.1;
+            yesScale += 0.15;
 
-            if (noScale <= 0.1) {
-                noBtn.style.display = 'none'; // Completely disappears
+            if (noScale <= 0.2) {
+                noBtn.style.opacity = '0';
+                noBtn.style.pointerEvents = 'none'; // Disable it completely
             } else {
                 noBtn.style.transform = `scale(${noScale})`;
                 yesBtn.style.transform = `scale(${yesScale})`;
             }
         };
 
-        // On iPad, this triggers as soon as she touches the button
-        noBtn.ontouchstart = handleNoInteraction;
-        noBtn.onclick = handleNoInteraction;
+        noBtn.onclick = handleNo;
+        noBtn.ontouchstart = handleNo;
     }
 }
 
         // PAGE 6: Final Celebration Burst
+       // Inside your nextPage(n) function in script.js
+// ... previous page checks (n === 5, etc.) ...
+
+        // PAGE 6: Final Celebration Burst
         if (n === 6) {
-            for (let i = 0; i < 100; i++) {
-                setTimeout(createBurstHeart, i * 10); 
+            // 1. Trigger the New Confetti Explosion
+            createConfetti(); 
+
+            // 2. Trigger the Massive Heart Explosion
+            for (let i = 0; i < 120; i++) {
+                setTimeout(createBurstHeart, i * 15); 
             }
         }
 
+        // This part should already be at the very bottom of your function:
         setTimeout(() => {
             if (bg) bg.classList.remove('blurred-bg');
         }, 400);
@@ -334,3 +344,33 @@ function checkWin() {
 
 
 // Add this to the bottom of your script.js
+
+// New Confetti Function
+function createConfetti() {
+    const colors = ['#ff4d6d', '#ff8fa3', '#ffafcc', '#ffffff', '#ffb3c1'];
+    for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.cssText = `
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: ${colors[Math.floor(Math.random() * colors.length)]};
+            top: -10px;
+            left: ${Math.random() * 100}vw;
+            opacity: ${Math.random()};
+            transform: rotate(${Math.random() * 360}deg);
+            z-index: 2000;
+            pointer-events: none;
+        `;
+        document.body.appendChild(confetti);
+
+        const duration = Math.random() * 3 + 2;
+        confetti.animate([
+            { transform: `translate3d(0, 0, 0) rotate(0deg)`, top: '-10px' },
+            { transform: `translate3d(${Math.random() * 200 - 100}px, 105vh, 0) rotate(${Math.random() * 1000}deg)`, top: '105vh' }
+        ], {
+            duration: duration * 1000,
+            easing: 'cubic-bezier(0, .9, .57, 1)'
+        }).onfinish = () => confetti.remove();
+    }
+}
