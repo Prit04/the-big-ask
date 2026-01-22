@@ -54,40 +54,32 @@ function nextPage(n) {
 // Locate this inside your nextPage(n) function in script.js
 // Locate this inside your nextPage(n) function in script.js
 // Locate this inside your nextPage(n) function in script.js
+// Locate this inside your nextPage(n) function in script.js
 if (n === 5) {
     const noBtn = document.getElementById('noBtn');
-    if (noBtn) {
-        // Strict central coordinates to ensure it never hits the iPad bezel
-        const positions = [
-            { x: 40, y: 40 },
-            { x: 60, y: 40 },
-            { x: 40, y: 60 },
-            { x: 60, y: 60 }
-        ];
-        let lastPos = -1;
+    const yesBtn = document.getElementById('yesBtn');
+    let noScale = 1;
+    let yesScale = 1;
 
-        const moveButton = () => {
-            let newPos;
-            do {
-                newPos = Math.floor(Math.random() * positions.length);
-            } while (newPos === lastPos);
+    if (noBtn && yesBtn) {
+        const handleNoInteraction = (e) => {
+            if (e) e.preventDefault(); // Essential for iPad touch
             
-            const pos = positions[newPos];
-            lastPos = newPos;
+            // Shrink the No button and grow the Yes button
+            noScale -= 0.15;
+            yesScale += 0.1;
 
-            // Apply styles directly to bypass any CSS conflicts
-            noBtn.style.position = 'fixed';
-            noBtn.style.left = pos.x + 'vw';
-            noBtn.style.top = pos.y + 'vh';
-            noBtn.style.zIndex = '10000';
-            noBtn.style.transform = 'translate(-50%, -50%)'; 
+            if (noScale <= 0.1) {
+                noBtn.style.display = 'none'; // Completely disappears
+            } else {
+                noBtn.style.transform = `scale(${noScale})`;
+                yesBtn.style.transform = `scale(${yesScale})`;
+            }
         };
 
-        noBtn.onmouseover = moveButton;
-        noBtn.ontouchstart = (e) => {
-            e.preventDefault(); 
-            moveButton();
-        };
+        // On iPad, this triggers as soon as she touches the button
+        noBtn.ontouchstart = handleNoInteraction;
+        noBtn.onclick = handleNoInteraction;
     }
 }
 

@@ -468,53 +468,60 @@ button {
     transform: translateY(0); /* Glide to natural position */
 }
 
-/* Update these at the bottom of style.css */
-
-/* Final Page 5 Layout */
+/* Final Page 5 Shrinking Layout */
 #page5.active {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     height: 100vh;
-    padding-bottom: 18vh;
-    overflow: visible !important;
 }
 
 #page5 .header-group {
-    position: absolute;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 95%;
-    z-index: 100;
+    position: relative; /* Stable positioning for iPad */
+    top: 0;
+    margin-bottom: 50px;
+    pointer-events: none;
 }
 
+/* Makes the "Can I be your boyfriend?" text HUGE */
 #page5 .cursive-font {
-    font-size: 2.8rem !important; 
+    font-size: 3.2rem !important; 
     color: #795548;
     text-align: center;
     display: block;
-    width: 90%;
-    margin: 0 auto;
+    line-height: 1.2;
 }
 
 #page5 .container {
-    margin-top: 0 !important;
-    overflow: visible !important;
+    padding: 3rem;
+    background: white;
+    border-radius: 30px;
+    box-shadow: 0 15px 35px rgba(121, 85, 72, 0.2);
+    width: 85%;
+    max-width: 400px;
+}
+
+.final-buttons {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    align-items: center;
+}
+
+#yesBtn, #noBtn {
+    /* This makes the shrinking and growing look smooth */
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-block;
+}
+
+#yesBtn {
+    background-color: #ff4d6d;
+    z-index: 10;
 }
 
 #noBtn {
     background-color: #d7ccc8;
     color: #795548;
-    padding: 15px 30px;
-    font-size: 1.1rem;
-    border-radius: 50px;
-    border: none;
-    /* REMOVE transition to prevent the button from sliding off-screen */
-    transition: none !important; 
-    
-    /* Hardware acceleration for iPad rendering */
-    -webkit-transform: translateZ(0);
-    backface-visibility: hidden;
+    z-index: 5;
 }
