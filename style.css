@@ -557,14 +557,11 @@ button {
 }
 
 .celebration-box {
-    margin-top: 0 !important; /* Managed by the header's margin-bottom now */
-    padding: 2.5rem !important;
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    width: 90%;
-    max-width: 450px;
+    justify-content: center;
+    overflow: visible !important; /* Prevents the box from cutting off the GIF */
 }
 
 .main-love {
@@ -580,8 +577,19 @@ button {
     margin: 10px 0;
 }
 
-.cat-container img {
-    width: 180px;
+.cat-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#final-gif {
+    width: 200px !important; /* Proper sizing for iPad */
     height: auto;
+    display: block;
+    margin: 0 auto;
     border-radius: 15px;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
