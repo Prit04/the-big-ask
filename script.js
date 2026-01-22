@@ -33,14 +33,23 @@ function nextPage(n) {
         nextSection.classList.add('active', 'fade-in-up');
 
         // 4. Page-Specific Logic
+        
+        // PAGE 2: The Letter
         if (n === 2) {
-            // Letter Page Logic
             document.getElementById('love-letter').innerHTML = "";
             letterIndex = 0;
             setTimeout(() => {
                 if (music) music.play().catch(() => {});
                 typeLetter(); 
             }, 1200);
+        }
+
+        // PAGE 3: The Rotating Heart (NEW)
+        if (n === 3) {
+            // Wait for the transition to finish, then build the heart
+            setTimeout(() => {
+                createTextHeart();
+            }, 500);
         }
 
         // 5. Lift the blur as the new page settles
@@ -50,7 +59,6 @@ function nextPage(n) {
 
     }, 1100); 
 }
-
 function createBurstHeart() {
     const heart = document.createElement('div');
     heart.classList.add('floating-heart', 'burst');
@@ -121,4 +129,53 @@ if (noBtn) {
         noBtn.style.left = Math.random() * 80 + 'vw';
         noBtn.style.top = Math.random() * 80 + 'vh';
     });
+}
+
+function createTextHeart() {
+    const container = document.getElementById('text-heart-container');
+    const sentences = [
+        "I love you", "En anbe", "My everything", "I love you", 
+        "Kanmani", "My princess", "I love you", "Baby girl", 
+        "I love you", "My world", "En uyire", "I love you"
+    ];
+    
+    const totalSentences = 15; // Number of items to form the shape
+    container.innerHTML = ''; // Clear previous
+
+    for (let i = 0; i < totalSentences; i++) {
+        const t = (i / totalSentences) * 2 * Math.PI;
+        
+        // Heart Math (Parametric equations)
+        const x = 16 * Math.pow(Math.sin(t), 3);
+        const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+        
+        const span = document.createElement('span');
+        span.className = 'heart-sentence';
+        span.innerText = sentences[i % sentences.length];
+        
+        // Scale the coordinates to fit the container (x10)
+        const posX = x * 10 + 150; 
+        const posY = y * 10 + 150;
+        
+        span.style.left = `${posX}px`;
+        span.style.top = `${posY}px`;
+        
+        // Slightly rotate each sentence to follow the curve
+        span.style.transform = `rotate(${t}rad)`;
+        
+        container.appendChild(span);
+    }
+
+    // Show the button after 3 seconds of the heart rotating
+    setTimeout(() => {
+        const btn = document.getElementById('gameStartBtn');
+        btn.classList.remove('hidden');
+        btn.classList.add('show');
+    }, 3000);
+}
+
+// Update your nextPage function to trigger the heart creation
+// Inside your existing nextPage(n) function, add:
+if (n === 3) {
+    setTimeout(createTextHeart, 1500); // Start after transition
 }
