@@ -384,3 +384,69 @@ button {
 .pulse-button.show {
     animation: pulse 2s infinite ease-in-out 1.2s; 
 }
+
+.word-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 30px 0;
+    min-height: 40px; /* Ensures space is reserved */
+}
+
+.letter-slot {
+    border-bottom: 3px solid #ff8fa3 !important;
+    min-width: 25px;
+    height: 35px;
+    margin: 4px;
+    font-size: 1.8rem;
+    color: #795548;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.keyboard-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    max-width: 100%;
+    margin-top: 20px;
+}
+
+.key {
+    background: #fdf0d5;
+    border: 2px solid #ffafcc;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    color: #795548;
+    transition: 0.3s;
+}
+
+.key.disabled {
+    background: #d7ccc8;
+    color: #f5ebe0;
+    cursor: not-allowed;
+    border-color: #d7ccc8;
+}
+
+#hangman-status { margin: 15px 0; font-weight: bold; color: #ff4d6d; }
+
+/* This forces the game to stack vertically instead of being invisible */
+#page4 .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 550px; /* Gives the keyboard room to appear */
+}
+
+.word-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    min-height: 50px;
+}

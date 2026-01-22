@@ -55,13 +55,23 @@
     </div>
 </section>
 
-        <section id="page4" class="page">
-            <div class="container">
-                <h1>Yay! Best day ever! ❤️</h1>
-                <p>I love you, Hema.</p>
-            </div>
-        </section>
+<section id="page4" class="page">
+    <div class="container letter-box">
+        <h2 class="letter-title">Solve this to continue...</h2>
+        
+        <div id="hangman-display" class="word-container"></div>
+        
+        <div id="hangman-status">
+            Lives: <span id="lives-count">6</span> ❤️
+        </div>
+
+        <div id="keyboard" class="keyboard-container"></div>
+        <div id="game-success" class="hidden">
+            <p class="cursive-font">You got it! ❤️</p>
+            <button class="pulse-button" onclick="nextPage(5)">Final Surprise</button>
+        </div>
     </div>
+</section>
 
     <script src="script.js"></script>
 </body>

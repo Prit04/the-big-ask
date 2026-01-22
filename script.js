@@ -11,20 +11,14 @@ function nextPage(n) {
     const nextSection = document.getElementById(`page${n}`);
     const bg = document.getElementById('bg-visuals'); 
 
-    // 1. Trigger the "Magic" (Blur + Hearts)
     if (bg) bg.classList.add('blurred-bg');
 
-    // Create the Heart Burst
     for (let i = 0; i < 60; i++) {
         setTimeout(createBurstHeart, i * 15); 
     }
 
-    // 2. Hide current page immediately to prevent ghosting
-    if (currentPage) {
-        currentPage.classList.add('exit-instant'); 
-    }
+    if (currentPage) currentPage.classList.add('exit-instant'); 
 
-    // 3. Switch to the next page
     setTimeout(() => {
         document.querySelectorAll('.page').forEach(p => {
             p.classList.remove('active', 'exit-instant', 'fade-in-up', 'fade-out');
@@ -32,9 +26,14 @@ function nextPage(n) {
 
         nextSection.classList.add('active', 'fade-in-up');
 
-        // 4. Page-Specific Logic
-        
-        // PAGE 2: The Letter
+        // --- ADD THIS PART FOR PAGE 4 ---
+        if (n === 4) {
+            // We wait a split second for the page to finish sliding in
+            setTimeout(() => {
+                initHangman(); 
+            }, 500);
+        }
+
         if (n === 2) {
             document.getElementById('love-letter').innerHTML = "";
             letterIndex = 0;
@@ -44,15 +43,10 @@ function nextPage(n) {
             }, 1200);
         }
 
-        // PAGE 3: The Rotating Heart (NEW)
         if (n === 3) {
-            // Wait for the transition to finish, then build the heart
-            setTimeout(() => {
-                createTextHeart();
-            }, 500);
+            setTimeout(createTextHeart, 500);
         }
 
-        // 5. Lift the blur as the new page settles
         setTimeout(() => {
             if (bg) bg.classList.remove('blurred-bg');
         }, 400);
@@ -202,3 +196,89 @@ setTimeout(() => {
 if (n === 3) {
     setTimeout(createTextHeart, 1500); // Start after transition
 }
+
+
+const targetPhrase = "CAN I BE YOUR BOYFRIEND";
+let guessedLetters = [];
+let lives = 6;
+
+function initHangman() {
+    const display = document.getElementById('hangman-display');
+    const kb = document.getElementById('keyboard');
+
+    // If these don't exist, the game can't start!
+    if (!display || !kb) {
+        console.error("Game elements not found!");
+        return;
+    }
+
+    lives = 6;
+    guessedLetters = [];
+    document.getElementById('lives-count').innerText = lives;
+    
+    // Ensure success message is hidden and keyboard is visible
+    document.getElementById('game-success').classList.add('hidden');
+    kb.style.display = 'flex'; 
+    
+    renderWord();
+    renderKeyboard();
+}
+
+function renderWord() {
+    const display = document.getElementById('hangman-display');
+    display.innerHTML = '';
+    
+    [...targetPhrase].forEach(char => {
+        const slot = document.createElement('div');
+        if (char === ' ') {
+            slot.className = 'space-slot';
+        } else {
+            slot.className = 'letter-slot';
+            slot.innerText = guessedLetters.includes(char) ? char : '';
+        }
+        display.appendChild(slot);
+    });
+}
+
+function renderKeyboard() {
+    const kb = document.getElementById('keyboard');
+    kb.innerHTML = '';
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
+    
+    letters.forEach(l => {
+        const btn = document.createElement('button');
+        btn.className = 'key';
+        btn.innerText = l;
+        btn.onclick = () => handleGuess(l, btn);
+        kb.appendChild(btn);
+    });
+}
+
+function handleGuess(letter, btn) {
+    if (btn.classList.contains('disabled')) return;
+    btn.classList.add('disabled');
+    
+    if (targetPhrase.includes(letter)) {
+        guessedLetters.push(letter);
+        renderWord();
+        checkWin();
+    } else {
+        lives--;
+        document.getElementById('lives-count').innerText = lives;
+        if (lives <= 0) {
+            alert("Oops! Try again princess ❤️");
+            initHangman();
+        }
+    }
+}
+
+function checkWin() {
+    const isWin = [...targetPhrase.replace(/\s/g, '')].every(l => guessedLetters.includes(l));
+    if (isWin) {
+        document.getElementById('keyboard').classList.add('hidden');
+        document.getElementById('game-success').classList.remove('hidden');
+    }
+}
+
+// Add to your nextPage logic:
+// if (n === 4) { setTimeout(initHangman, 500); }
