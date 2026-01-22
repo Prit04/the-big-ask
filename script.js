@@ -9,54 +9,46 @@ let burstInterval;
 function nextPage(n) {
     const currentPage = document.querySelector('.page.active');
     const nextSection = document.getElementById(`page${n}`);
-    const bg = document.getElementById('bg-visuals'); // Targeted background
+    const bg = document.getElementById('bg-visuals'); 
 
-    if (n === 2) {
-        // 1. BLUR ONLY THE BACKGROUND
-        bg.classList.add('blurred-bg');
+    // 1. Trigger the "Magic" (Blur + Hearts)
+    if (bg) bg.classList.add('blurred-bg');
 
-        // 2. START THE HEART BURST
-        for (let i = 0; i < 60; i++) {
-            setTimeout(createBurstHeart, i * 15); 
-        }
+    // Create the Heart Burst
+    for (let i = 0; i < 60; i++) {
+        setTimeout(createBurstHeart, i * 15); 
+    }
 
-        // 3. HIDE PAGE 1 CONTENT IMMEDIATELY (Prevents centering ghost)
-        if (currentPage) {
-            currentPage.classList.add('exit-instant'); 
-        }
+    // 2. Hide current page immediately to prevent ghosting
+    if (currentPage) {
+        currentPage.classList.add('exit-instant'); 
+    }
 
-        // 4. SWITCH TO PAGE 2
-        setTimeout(() => {
-            document.querySelectorAll('.page').forEach(p => {
-                p.classList.remove('active', 'exit-instant', 'fade-in-up');
-            });
+    // 3. Switch to the next page
+    setTimeout(() => {
+        document.querySelectorAll('.page').forEach(p => {
+            p.classList.remove('active', 'exit-instant', 'fade-in-up', 'fade-out');
+        });
 
-            nextSection.classList.add('active', 'fade-in-up');
+        nextSection.classList.add('active', 'fade-in-up');
 
+        // 4. Page-Specific Logic
+        if (n === 2) {
+            // Letter Page Logic
             document.getElementById('love-letter').innerHTML = "";
             letterIndex = 0;
-
-            // 5. LIFT BLUR
-            setTimeout(() => {
-                bg.classList.remove('blurred-bg');
-            }, 400);
-
-            // 6. START TYPING
             setTimeout(() => {
                 if (music) music.play().catch(() => {});
                 typeLetter(); 
-            }, 1200); 
+            }, 1200);
+        }
 
-        }, 1100); 
-
-    } else {
-        // Normal transition for other pages...
-        if (currentPage) currentPage.classList.add('fade-out');
+        // 5. Lift the blur as the new page settles
         setTimeout(() => {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active', 'fade-out'));
-            nextSection.classList.add('active', 'fade-in-up');
-        }, 800);
-    }
+            if (bg) bg.classList.remove('blurred-bg');
+        }, 400);
+
+    }, 1100); 
 }
 
 function createBurstHeart() {
