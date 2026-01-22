@@ -59,24 +59,27 @@ function nextPage(n) {
         }
 
         // PAGE 5: The "No" Button Logic
+// PAGE 5: The "No" Button Logic
+// Replace the Page 5 logic inside your nextPage(n) function in script.js
+
 if (n === 5) {
     const noBtn = document.getElementById('noBtn');
     if (noBtn) {
         const moveButton = () => {
-            // Safe zone: stay between 15% and 75% so it doesn't hit the screen edges
-            const x = Math.random() * 60 + 15;
-            const y = Math.random() * 60 + 15;
+            // STRICT SAFE ZONE: Keeps button within 25% to 70% of the screen
+            // This ensures it never hits the iPad notch, dock, or edges
+            const x = Math.random() * 45 + 25; 
+            const y = Math.random() * 45 + 25;
             
             noBtn.style.position = 'fixed';
             noBtn.style.left = x + 'vw';
             noBtn.style.top = y + 'vh';
-            noBtn.style.zIndex = '9999'; // Keep it on top of everything
+            noBtn.style.zIndex = '9999'; 
         };
 
-        // Desktop support
         noBtn.onmouseover = moveButton;
         
-        // iPad/Touch support: prevents the tap and moves it instead
+        // Essential for iPad touch interaction
         noBtn.ontouchstart = (e) => {
             e.preventDefault(); 
             moveButton();
