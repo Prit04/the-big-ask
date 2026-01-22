@@ -1,6 +1,6 @@
 const music = document.getElementById('bgMusic');
 const introText = "I made a little something for you...";
-const letterText = `Hema,\n\nFrom the moment we started talking, I knew there was something special about you. Even with the distance, you’ve become the best part of my day...`;
+const letterText = `Hema,\n\nFrom the day I requested you and built the courage to send you my first message, I always knew that there was something special about you. We grew close, so close in the short amount of time and i couldn't have been more grateful for it. Kanmani, you are the centre of my universe; the treasure i will forever keep and admire, the one and only for me. \nI want to spend my whole life with you. You are the prettiest, most beautiful girl. I love your smile, your eyes, your hair, your cute laugh; everything about you, i adore. Your kindness, your affection, the way you make me feel so loved, appreciated and complete. That's something that means a lot to me princess. \nI hope as we spend our time together, our love and bond only grow stronger and flourishes. I look forward to spending every moment with you in my life. \nEven with the distance we have, you've become the best part of my day, and life. Hema my baby girl, I LOVE YOU deeply and dearly, and will continue to do so till my last breath.`;
 
 let introIndex = 0;
 let letterIndex = 0;
@@ -87,15 +87,16 @@ setTimeout(typeIntro, 1200);
 
 function typeLetter() {
     if (letterIndex < letterText.length) {
-        document.getElementById('love-letter').innerHTML += letterText.charAt(letterIndex);
+        document.getElementById("love-letter").innerHTML += letterText.charAt(letterIndex);
         letterIndex++;
         setTimeout(typeLetter, 50);
     } else {
-        document.getElementById('cat-gif').classList.add('show');
+        // This reveals the GIF and the Button
+        const catSection = document.getElementById("cat-gif");
+        catSection.classList.remove("hidden");
+        catSection.classList.add("show");
     }
 }
-
-
 // Sparkles logic
 setInterval(() => {
     const s = document.createElement('div');
