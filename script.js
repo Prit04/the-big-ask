@@ -272,6 +272,7 @@ function handleGuess(letter, btn) {
     }
 }
 
+// Replace your current checkWin function with this
 function checkWin() {
     const isWin = [...targetPhrase.replace(/\s/g, '')].every(l => guessedLetters.includes(l));
     
@@ -280,14 +281,17 @@ function checkWin() {
         const successSection = document.getElementById('game-success');
         
         // 1. Hide the keyboard
-        kb.classList.add('hidden');
+        kb.style.display = 'none';
         
-        // 2. Prepare the success section and then trigger the fade-in
-        successSection.classList.remove('hidden');
+        // 2. Prepare for fade-in
+        successSection.style.display = 'flex'; // Bring into layout
         
-        setTimeout(() => {
-            successSection.classList.add('reveal');
-        }, 50); // Minimal delay to trigger the CSS transition
+        // The "Double Frame" trick ensures the transition actually plays
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                successSection.classList.add('reveal');
+            });
+        });
     }
 }
 // Add to your nextPage logic:
