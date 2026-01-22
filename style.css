@@ -186,12 +186,23 @@ button {
 
 .letter-box {
     max-width: 600px;
-    min-height: 400px; /* Gives a nice minimum height */
+    width: 90%;
+    /* Set a minimum height so the box doesn't grow/shrink as text appears */
+    min-height: 500px; 
     text-align: left;
     display: flex;
     flex-direction: column;
-    padding: 3rem; /* More breathing room */
+    justify-content: flex-start; /* Keeps text at the top */
+    align-items: stretch;
+    padding: 3rem;
+    overflow: hidden; /* Prevents scrollbars from popping in and out */
+    transition: none; /* Removing transitions on the box itself prevents the jitter */
 }
+
+#letter-container {
+    flex-grow: 1; /* This takes up all available space */
+}
+
 /* Updated Bursting Heart style */
 .floating-heart.burst {
     width: 80px;  /* Increased significantly for iPad impact */
@@ -268,26 +279,21 @@ button {
     display: none !important;
 }
 
-/* Centers the container but keeps it invisible initially */
 #cat-gif {
+    margin-top: auto; /* Pushes the cat/button to the bottom of the fixed-height box */
+    padding-top: 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-top: 30px;
-    
-    /* THE FIX: Start invisible and non-interactive */
     opacity: 0;
-    pointer-events: none; 
+    pointer-events: none;
     transition: opacity 1s ease-in;
 }
 
-/* When typing ends, this class makes them appear */
 #cat-gif.show {
     opacity: 1;
-    pointer-events: auto; 
+    pointer-events: auto;
 }
 
 .cat-container img {
