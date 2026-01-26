@@ -70,7 +70,7 @@ body {
     z-index: 50;
 }
 
-/* Update this specific section */
+/* Update this section in your style.css */
 .no-box { 
     background: transparent !important; 
     box-shadow: none !important; 
@@ -78,8 +78,10 @@ body {
     /* Perfect Centering Logic */
     position: absolute;
     left: 50%;
-    transform: translateX(-50%); /* This pulls it back to the exact center */
-    top: 55%; /* Adjust this percentage to move the button up or down */
+    transform: translateX(-50%); 
+    
+    /* Change 55% to 45% or 50% to move the button UP */
+    top: 48%; 
     
     width: auto;
     display: flex;
@@ -362,7 +364,7 @@ button {
 /* Ensure the button has space */
 .game-intro {
     height: 60px; /* Reserve space so it doesn't jump */
-    margin-top: 40px;
+    margin-top: 100px;
 }
 
 /* Update these in style.css */
