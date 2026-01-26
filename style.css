@@ -600,19 +600,38 @@ button {
     margin: 10px 0;
 }
 
+/* Update this at the bottom of style.css */
 .cat-container {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 15px;
+    min-height: 180px; /* Reserves space so the box doesn't jump */
 }
 
 #final-gif {
-    width: 200px !important; /* Proper sizing for iPad */
+    width: 200px !important; /* Adjust this if you want it bigger or smaller */
     height: auto;
     display: block;
-    margin: 0 auto;
+    border-radius: 20px; /* Matches the cute rounded corners of your box */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Adds a soft depth */
+}
+
+/* Specific styling for the Page 2 Cat */
+#letter-cat {
+    width: 150px !important; /* Smaller size for the letter page */
+    height: auto;
     border-radius: 15px;
-    opacity: 1 !important;
-    visibility: visible !important;
+    margin-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Ensure the Page 6 Cat stays at its larger size */
+#final-gif {
+    width: 220px !important; 
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto;
 }
