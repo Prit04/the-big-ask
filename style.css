@@ -72,21 +72,46 @@ body {
 
 /* Update this section in your style.css */
 .no-box { 
-    background: transparent !important; 
-    box-shadow: none !important; 
+    background: white !important; 
+    padding: 2.5rem;
+    border-radius: 30px;
+    box-shadow: 0 0 20px rgba(255, 175, 204, 0.5); 
     
-    /* Perfect Centering Logic */
     position: absolute;
     left: 50%;
-    transform: translateX(-50%); 
-    
-    /* Change 55% to 45% or 50% to move the button UP */
+    /* 1. Set the initial transform here so it loads centered immediately */
+    transform: translate(-50%, 0); 
     top: 48%; 
     
-    width: auto;
+    width: 85%;
+    max-width: 350px;
     display: flex;
     justify-content: center;
     z-index: 110;
+
+    opacity: 0; 
+    
+    /* Animation call remains the same */
+    animation: fadeIn 0.5s 2.5s forwards, floatHome 4s ease-in-out infinite 3s;
+}
+
+/* 2. UPDATE: Ensure translateX(-50%) is included in EVERY step of the float */
+@keyframes floatHome {
+    0%   { transform: translate(-50%, 0px); }
+    50%  { transform: translate(-50%, -15px); }
+    100% { transform: translate(-50%, 0px); }
+}
+
+/* 3. UPDATE: Ensure the fadeIn doesn't strip away the centering */
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translate(-50%, 10px); /* Start slightly lower and centered */
+    }
+    to { 
+        opacity: 1; 
+        transform: translate(-50%, 0); /* End fully visible and centered */
+    }
 }
 
 /* Ensure the button itself doesn't have odd margins */

@@ -156,16 +156,24 @@ setInterval(() => {
 }, 400);
 
 // NEW High-Quality Heart Logic
+/* Update in script.js */
 function createHeart() {
     const heart = document.createElement('div');
     heart.classList.add('floating-heart');
     heart.style.left = Math.random() * 100 + "vw";
-    const duration = Math.random() * 3 + 3; 
+    
+    // Vary the size and speed more
+    const duration = Math.random() * 5 + 3; 
     heart.style.animationDuration = duration + "s";
-    const scale = Math.random() * 0.5 + 0.8;
+    
+    // Randomize opacity for depth
+    heart.style.opacity = Math.random() * 0.5 + 0.3; 
+    
+    const scale = Math.random() * 0.8 + 0.5;
     heart.style.transform = `rotate(-45deg) scale(${scale})`;
+    
     document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
+    setTimeout(() => heart.remove(), duration * 1000);
 }
 setInterval(createHeart, 400);
 
