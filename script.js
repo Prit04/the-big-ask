@@ -12,7 +12,24 @@ let lives = 6;
 function nextPage(n) {
     const currentPage = document.querySelector('.page.active');
     const nextSection = document.getElementById(`page${n}`);
-    const bg = document.getElementById('bg-visuals'); 
+    const bg = document.getElementById('bg-visuals');
+    const music = document.getElementById('bgMusic');
+    const pop = document.getElementById('popSound');
+    const yippee = document.getElementById('yippeeSound');
+    const confettiPop = document.getElementById('confettiPopSound');
+
+    // Play Pop sound for every button transition
+    if (pop) {
+        pop.volume = 0.2;
+        pop.currentTime = 0;
+        pop.play().catch(() => {});
+    }
+
+    // Start background music on the first interaction (Page 1 -> 2)
+    if (n === 2 && music) {
+        music.volume = 0.15; // Set to a soft background level
+        music.play().catch(e => console.log("Audio blocked: user must click first"));
+    }
 
     if (bg) bg.classList.add('blurred-bg');
 
@@ -51,11 +68,7 @@ function nextPage(n) {
         }
 
         // PAGE 5: The "No" Button Logic (UPDATED MATH)
-// Locate this inside your nextPage(n) function in script.js
-// Locate this inside your nextPage(n) function in script.js
-// Locate this inside your nextPage(n) function in script.js
-// Locate this inside your nextPage(n) function in script.js
-// Locate this inside your nextPage(n) function in script.js
+
 if (n === 5) {
     const noBtn = document.getElementById('noBtn');
     const yesBtn = document.getElementById('yesBtn');
@@ -91,8 +104,15 @@ if (n === 5) {
         // PAGE 6: Final Celebration Burst
         if (n === 6) {
             // 1. Trigger the New Confetti Explosion
-            createConfetti(); 
-
+            createConfetti();
+    if (yippee) {
+            yippee.volume = 0.2; // Set finale volume
+            yippee.play();
+        }
+        if (confettiPop) {
+            confettiPop.volume = 0.2; // Set finale volume
+            confettiPop.play();
+        }
             // 2. Trigger the Massive Heart Explosion
             for (let i = 0; i < 120; i++) {
                 setTimeout(createBurstHeart, i * 15); 
@@ -310,6 +330,14 @@ function renderKeyboard() {
 
 function handleGuess(letter, btn) {
     if (btn.classList.contains('disabled')) return;
+
+    // Play typewriter sound on key click
+    const typewriter = document.getElementById('typewriterSound');
+    if (typewriter) {
+        typewriter.currentTime = 0;
+        typewriter.play().catch(() => {});
+    }
+
     btn.classList.add('disabled');
     
     if (targetPhrase.includes(letter)) {
