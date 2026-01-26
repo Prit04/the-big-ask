@@ -27,7 +27,7 @@ body {
 /* 3. HEADER GROUP - Moved lower and text made bigger */
 .header-group {
     position: absolute;
-    top: 22%; /* Moved down from 15% to 22% */
+    top: 15%; /* Moved down from 15% to 22% */
     width: 100%;
     text-align: center;
     z-index: 100;
